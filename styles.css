@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+.lives {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    position: relative;
+    font-size: 18px;
+    color: #f0f0f0; /* Default text color */
+    font-weight: bold;
+}
+
+.card span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card.hidden {
+    background-color: #f0f0f0;
+}
+
+.card.revealed {
+    background-color: #fff;
+    border: 2px solid green;
+    color: black; /* Show text in black when revealed */
+}
+
+.card.matched {
+    background-color: #ccc;
+    border: 2px solid transparent;
+}
+
+.card img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    position: absolute;
+    background-color: #f0f0f0;/* Default to grayscale */
+    opacity: 0;
+    transition: filter 0.3s; /* Smooth transition for filter change */
+}
+
+.card.revealed img {
+    opacity: 1;
+}
+
+.message {
+    margin-top: 20px;
+    font-size: 18px;
+}
