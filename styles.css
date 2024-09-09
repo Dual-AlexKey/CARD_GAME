@@ -4,10 +4,29 @@ body {
     margin: 0;
     padding: 0;
     position: relative;
+    background-color: #FBF2F2; /* Color de fondo de la página */
 }
 
-h1 {
-    margin-top: 20px;
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('patron.png'); /* Ruta de la imagen de fondo con diseño */
+    opacity: 0.5; /* Opacidad inicial */
+    animation: animateBackground 1s linear infinite alternate; /* Animación del fondo */
+}
+
+@keyframes animateBackground {
+    0% {
+        opacity: 0.5; /* Opacidad inicial */
+        transform: translateY(0); /* Sin movimiento inicial */
+    }
+    100% {
+        opacity: 0.6; /* Opacidad final */
+        transform: translateY(-10px); /* Movimiento hacia arriba */
+    }
 }
 
 .lives {
@@ -18,6 +37,21 @@ h1 {
     font-weight: bold;
 }
 
+.Contai_Titulo {
+    background-image: linear-gradient(to right, #5f66e2, #414478);
+    border-radius: 0.4pc;
+    border: none;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-left: 30px;
+    padding: 0 25px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    animation: vibrarLogo 1s infinite alternate;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(3, 100px);
@@ -25,7 +59,9 @@ h1 {
     gap: 10px;
     justify-content: center;
     margin-top: 20px;
+    animation: vibrarLogo 1s infinite alternate;
 }
+
 
 .card {
     width: 100px;
@@ -77,7 +113,483 @@ h1 {
     opacity: 1;
 }
 
-.message {
-    margin-top: 20px;
-    font-size: 18px;
+#mute-icon {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    fill: #000000;
+    display: none;
+}
+
+#mute-icon:hover {
+    fill: #655d5d;
+}
+
+#sound-icon{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    fill: #000000;
+    display: block;
+}
+
+/* Estilos para el icono de flecha */
+#arrow-icon {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+/* Animación para mover la flecha de izquierda a derecha */
+@keyframes moveArrow {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(20px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.modalNext {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.modalNext-content {
+    background: linear-gradient(to top, #f88f32, #ffbb77);
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 20%;
+    text-align: center;
+    animation: modalFadeIn 0.5s ease-out;
+    position: relative;
+}
+.modalNext.show {
+    opacity: 1;
+    display: flex;
+}
+
+.modalNext.hide {
+    opacity: 0;
+}
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modalNext-content p {
+    font-size: 1.5em;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    font-weight: bold;
+}
+/* Aplicar la animación a la flecha */
+#arrow-icon {
+    animation: moveArrow 2s ease infinite;
+}
+
+.word:hover {
+    background-color: #2980b9;
+    color: #EEEEFF;
+}
+
+.texto {
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.messages {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    display: none;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+}
+
+#correct-message {
+    background-color: #2ecc71;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#error-message {
+    background-color: #e74c3c;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#completed {
+    background-color: #3498db;
+    padding: 40px;
+    border-radius: 10px;
+}
+.selected {
+    border: 3px solid green; /* Cambia el borde a verde */
+    transform: scale(1.1); /* Agranda un poco la imagen */
+}
+
+
+
+.game-info {
+    display: flex;
+    align-items: center;
+    width: calc(100% - 100px); /* Resta el ancho del contenedor de los corazones más un margen adicional */
+    justify-content: space-between;
+    padding: 0 20px; /* Agrega un relleno a los lados */
+     /* Ocupa todo el ancho disponible */
+    max-width: 1000px; /* Establece un ancho máximo */
+    margin: 0 auto;
+}
+
+
+.hearts-container p2 {
+    font-family: 'Inter', sans-serif; /* Cambia el tipo de letra a Inter */
+    font-size: 16px; /* Establece el tamaño del texto en 16px */
+    font-weight: 800; /* Establece el peso del texto en 800 (extrabold) */
+    color: #D67D7D;
+    
+}
+
+
+/* Estilos para los corazones o vidas del juego */
+.hearts-container {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ffffff; /* Agrega un borde al contenedor */
+    padding: 7px; /* Agrega espacio interno alrededor del contenido */
+    border-radius: 10px; /* Agrega bordes redondeados al contenedor */
+    background-color: #ffffff;
+        
+    
+}
+
+
+.heart {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}
+
+
+@keyframes vibrarLogo {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+@media (min-width: 1310px) {
+    body {
+        margin: 0;
+    }
+
+    .container {
+        max-width: 1289px;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .texto {
+        font-size: 18px;
+    }
+
+
+    .info {
+        margin-left: auto;
+        width: 200px;
+        justify-content: center;
+    }
+
+    .info p {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .info svg {
+        margin-left: 5px;
+    }
+
+    .oraciones {
+        margin-left: 10%;
+        float: left;
+    }
+
+    .oraciones p {
+        font-size: 25px;
+    }
+
+    .botones {
+        margin-top: 50px;
+        margin-right: 200px;
+        float: right;
+        flex-direction: column;
+
+    }
+
+    .botones button {
+        margin-bottom: 45px;
+    }
+    
+
+}
+
+    @media screen and (min-width: 1160px) and (max-width: 1309px) {
+        body {
+            margin: 0;
+        }
+        .images {
+            /* Ajusta el margen derecho para mover las imágenes hacia el lado */
+            margin-left: -290px; /* Margen izquierdo para evitar que las imágenes se superpongan al banner */
+        }
+        .container {
+            max-width: 1289px;
+            height: 100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Divide en tres columnas */
+            gap: 12px; /* Espacio entre elementos */
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Divide en tres columnas */
+            gap: 8px; /* Espacio entre elementos */
+        }
+            
+        
+            .card {
+                width: 150px;
+                height: 130px;
+                margin-top: 3px;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+            }
+            
+        
+            .oraciones {
+                margin-left: 20%;
+                float: left;
+            }
+        
+        
+        
+        
+        
+        
+        
+            
+        }
+
+   @media screen and (min-width: 900px) and (max-width: 1159px) {
+    body {
+        margin: 0;
+    }
+    .images {
+    
+        margin-top: 100px;
+        margin-right: 260px;
+        margin-left: -290px; /* Margen superior para evitar que las imágenes se superpongan al banner */
+         /* Margen inferior para evitar que las imágenes se superpongan al encabezado del juego */
+    }
+    .container {
+        max-width: 1289px;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Divide en tres columnas */
+        gap: 12px; /* Espacio entre elementos */
+    }
+    .options {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Divide en dos columnas */
+        gap: 11px; /* Espacio entre elementos */
+    }
+    .card {
+        width: 150px;
+        height: 130px;
+        margin-top: 3px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+    }
+    .oraciones {
+        margin-left: 20%;
+        float: left;
+    }
+}
+
+@media screen and (min-width: 680px) and (max-width: 899px) {
+    /* Ajustes específicos para dispositivos con anchura entre 301px y 899px */
+    
+    
+    .container {
+        max-width: 90%; /* Cambia a un porcentaje del ancho de la pantalla */
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .options {
+        width: 90%;
+        margin-top: -20px;
+        order: 2 !important; /* ¡Agrega !important para priorizar este estilo! */
+    }
+    
+    
+    .oraciones p {
+        font-size: 25px; /* Ajusta el tamaño de fuente de las oraciones */
+    }
+    
+    .botones {
+        text-align: center; /* Centra los botones horizontalmente */
+        margin-top: 20px; /* Ajusta el margen superior de los botones */
+    }
+    
+   
+
+    /* Oculta el icono de mute */
+    .mute-button {
+        display: none;
+    }
+
+    .card {
+        width: 100%; /* Cambia a un porcentaje del ancho de la pantalla */
+        /* Permite que la altura se ajuste automáticamente */
+        max-width: 200px; /* Establece un ancho máximo para las tarjetas */
+        margin-top: -20px; /* Ajusta el margen superior */
+        margin-bottom: 20px; /* Ajusta el margen inferior */
+        margin-left: auto; /* Centra horizontalmente */
+        margin-right: auto; /* Centra horizontalmente */
+    }
+
+
+    .images {
+        width: 100%; /* Cambia a un porcentaje del ancho de la pantalla */
+       
+        margin-bottom: 50px; /* Ajusta el margen inferior */
+        margin-left: -90px; 
+        margin-right: 30px; 
+    }
+    .hearts-container p2 {
+        display: none; /* Oculta la palabra "Vidas" */
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 679px) {
+    /* Ajustes específicos para dispositivos con anchura entre 301px y 899px */
+   
+   
+    .mute-button {
+        display: none;
+    }
+    .images {
+        width: 100%; /* Cambia a un porcentaje del ancho de la pantalla */
+       
+        margin-bottom: 50px; /* Ajusta el margen inferior */
+        margin-left: -130px; 
+        margin-right: 30px; 
+    }
+    .options {
+        width: 90%;
+        margin-top: -20px;
+        order: 2 !important; /* ¡Agrega !important para priorizar este estilo! */
+    }
+    .board {
+      
+        gap: 12px; /* Espacio entre elementos */
+    }
+    .hearts-container p2 {
+        display: none; /* Oculta la palabra "Vidas" */
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 599px) {
+    /* Ajustes específicos para dispositivos con anchura entre 301px y 899px */
+   .container{
+    margin-left: 5%;
+   }
+    .images {
+        width: 100%; /* Cambia a un porcentaje del ancho de la pantalla */
+       
+        margin-bottom: 50px; /* Ajusta el margen inferior */
+        margin-left: 70%;
+    }
+    .options {
+        width: 90%;
+        margin-top: -20px;
+        order: 2 !important; /* ¡Agrega !important para priorizar este estilo! */
+    }
+    .board {
+      
+        gap: 12px; /* Espacio entre elementos */
+    }
+
+    .card {
+        width: 110px;
+        height: 90px;
+    }
+    
+    .hearts-container p2 {
+        display: none; /* Oculta la palabra "Vidas" */
+    }
+
+    .modalNext-content p{
+        font-size: 0.8em;
+    }
 }
